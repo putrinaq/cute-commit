@@ -1,0 +1,19 @@
+[Unit]
+Description=Draw today's bunny pixels on the GitHub contribution graph
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+User=bunny
+ExecStart=/usr/bin/python3 /opt/cute-commit/bunny.py run --repo /var/lib/cute-commit/repo
+Environment=PYTHONDONTWRITEBYTECODE=1
+TimeoutStartSec=20min
+Restart=on-failure
+RestartSec=30min
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/cute-commit
